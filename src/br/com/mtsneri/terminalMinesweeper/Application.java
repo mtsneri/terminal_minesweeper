@@ -6,6 +6,8 @@ import br.com.mtsneri.terminalMinesweeper.utils.Utils;
 import br.com.mtsneri.terminalMinesweeper.view.GameboardConsole;
 
 public class Application {
+	public static final String softwareVersion = "0.0.2";
+	public static final String softwareAuthor = "Mateus Neri de Souza";
 	
 	// Main Method
 	public static void main(String[] args) {

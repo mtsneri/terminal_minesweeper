@@ -2,6 +2,7 @@ package br.com.mtsneri.terminalMinesweeper.utils;
 
 import java.util.Scanner;
 
+import br.com.mtsneri.terminalMinesweeper.Application;
 import br.com.mtsneri.terminalMinesweeper.model.Gameboard;
 
 public class Utils {
@@ -23,8 +24,8 @@ public class Utils {
 	}
 	
 	public static void softwarePresentation() {
-		System.out.println("Campo Minado - Versão 0.0.1");
-		System.out.println("Autor: Mateus Neri de Souza");
+		System.out.println("Campo Minado - Versão: " + Application.softwareVersion);
+		System.out.println("Autor: " + Application.softwareAuthor);
 	}
 	
 	public static int[] getUserGameboardEntries() {
