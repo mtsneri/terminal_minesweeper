@@ -36,21 +36,14 @@ public class Gameboard {
 
 	// Constructor
 	public Gameboard(int entries[]) throws InvalidGameboardEntryException {
-		
 		int numRows = entries[0];
 		int numColumns = entries[1];
 		int numMines = entries[2];
-		
-		boolean isEntryInRowsRange = numRows >= Gameboard.MIN_ROWS && numRows <= Gameboard.MAX_ROWS;
-		boolean isEntryInColumnsRange = numColumns >= Gameboard.MIN_COLUMNS && numColumns <= Gameboard.MAX_COLUMNS;
-		
 		int totalFields = numRows * numColumns;
 		int minMines = (int) Math.floor(totalFields * Gameboard.MIN_MINES_FACTOR);
 		int maxMines = (int) Math.floor(totalFields * Gameboard.MAX_MINES_FACTOR);
 		
-		boolean isMineEntryValid = numMines >= minMines && numMines <= maxMines; 
-		
-		boolean isEntryValid = isEntryInRowsRange && isEntryInColumnsRange && isMineEntryValid;
+		boolean isEntryValid = Gameboard.checkIfIsEntryValid(numRows, numColumns, numMines, totalFields, minMines, maxMines);
 		
 		if (isEntryValid) {
 			this.TOTAL_ROWS = numRows;
@@ -62,6 +55,16 @@ public class Gameboard {
 		} else {
 			throw new InvalidGameboardEntryException();
 		}
+	}
+	
+	// Static Methods
+	private static boolean checkIfIsEntryValid(int numRows, int numColumns, int numMines, int totalFields, int minMines, int maxMines) {
+		boolean isEntryInRowsRange = numRows >= Gameboard.MIN_ROWS && numRows <= Gameboard.MAX_ROWS;
+		boolean isEntryInColumnsRange = numColumns >= Gameboard.MIN_COLUMNS && numColumns <= Gameboard.MAX_COLUMNS;
+		boolean isMineEntryValid = numMines >= minMines && numMines <= maxMines; 
+		boolean isEntryValid = isEntryInRowsRange && isEntryInColumnsRange && isMineEntryValid;
+		
+		return isEntryValid;
 	}
 
 	// Instance Methods
