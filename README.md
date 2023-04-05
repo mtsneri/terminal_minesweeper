@@ -40,7 +40,7 @@ Mateus Neri
 
 * 0.0.2
 	* Refatorado o método construtor da classe Gameboard, criado método auxiliar para teste das entradas. 
-	* Refatorada a apresentação do software, sendo criada constantes na classe Application para determinar a versão e autor do software.
+	* Refatorada a apresentação do software, sendo criadas constantes na classe Application para determinar a versão e autor do software.
 	
 
 ## License
