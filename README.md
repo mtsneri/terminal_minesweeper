@@ -45,7 +45,7 @@ Mateus Neri
 * 0.0.3
 	* Implementado visual adequado para tabuleiros com dimensões de linhas e colunas maiores que 9 e menor que 100.
 
-## License
+## Licença
 
 N/A
 
