@@ -35,7 +35,6 @@ Mateus Neri
 	* Lançamento inicial
 	* As minas são geradas somente após a primeira abertura de um campo.
 	* Não implementados tabuleiros com o visual adequado a partir de 10 linhas/colunas (caso sejam aumentados os limites das constantes que determinam o máximo de linhas e colunas, não haverá responsividade visual).
-	* Não implementada a redistribuição ideal das minas. Portanto, dependendo da organização das minas do tabuleiro, geradas aleatoriamente, as decisões de marcação e abertura de campos podem não ser conclusivas e impossibilitar a vitória através da lógica tradicional do campo minado.
 	* Determinados via terminal, os parâmetros de entrada corretos. Assim como implementados os tratamentos para as entradas incorretas.
 
 * 0.0.2
