@@ -16,9 +16,9 @@ public class Gameboard {
 	public static final double MIN_MINES_FACTOR = 0.05;
 	public static final double MAX_MINES_FACTOR = 0.6;
 	public static final int MIN_ROWS = 4;
-	public static final int MAX_ROWS = 9;
+	public static final int MAX_ROWS = 30;
 	public static final int MIN_COLUMNS = 4;
-	public static final int MAX_COLUMNS = 9;
+	public static final int MAX_COLUMNS = 30;
 
 	// Instance Variables
 	private final int TOTAL_ROWS;
@@ -30,7 +30,7 @@ public class Gameboard {
 
 	private boolean gameRestarted = false;
 	public int qtdeCamposClicados = 0;
-	
+
 	public List<Integer> minesPosition = new ArrayList<>();
 	public List<Field> fields = new ArrayList<>();
 
@@ -42,9 +42,10 @@ public class Gameboard {
 		int totalFields = numRows * numColumns;
 		int minMines = (int) Math.floor(totalFields * Gameboard.MIN_MINES_FACTOR);
 		int maxMines = (int) Math.floor(totalFields * Gameboard.MAX_MINES_FACTOR);
-		
-		boolean isEntryValid = Gameboard.checkIfIsEntryValid(numRows, numColumns, numMines, totalFields, minMines, maxMines);
-		
+
+		boolean isEntryValid = Gameboard.checkIfIsEntryValid(numRows, numColumns, numMines, totalFields, minMines,
+				maxMines);
+
 		if (isEntryValid) {
 			this.TOTAL_ROWS = numRows;
 			this.TOTAL_COLUMNS = numColumns;
@@ -56,14 +57,15 @@ public class Gameboard {
 			throw new InvalidGameboardEntryException();
 		}
 	}
-	
+
 	// Static Methods
-	private static boolean checkIfIsEntryValid(int numRows, int numColumns, int numMines, int totalFields, int minMines, int maxMines) {
+	private static boolean checkIfIsEntryValid(int numRows, int numColumns, int numMines, int totalFields, int minMines,
+			int maxMines) {
 		boolean isEntryInRowsRange = numRows >= Gameboard.MIN_ROWS && numRows <= Gameboard.MAX_ROWS;
 		boolean isEntryInColumnsRange = numColumns >= Gameboard.MIN_COLUMNS && numColumns <= Gameboard.MAX_COLUMNS;
-		boolean isMineEntryValid = numMines >= minMines && numMines <= maxMines; 
+		boolean isMineEntryValid = numMines >= minMines && numMines <= maxMines;
 		boolean isEntryValid = isEntryInRowsRange && isEntryInColumnsRange && isMineEntryValid;
-		
+
 		return isEntryValid;
 	}
 
@@ -171,7 +173,7 @@ public class Gameboard {
 			}
 
 			this.fields.stream().filter(fieldToOpen).findFirst().ifPresent(open);
-			
+
 		} catch (ExplosionException | OpeningMarkedFieldException e) {
 			throw e;
 		}
@@ -191,21 +193,32 @@ public class Gameboard {
 				sb.append("     ");
 				continue;
 			}
-			sb.append(" " + i + " ");
+
+			if (i > 10) {
+				sb.append(" " + i + " ");
+			} else {
+				sb.append("  " + i + " ");
+			}
 		}
 
 		sb.append("\n\n");
-		
+
 		Consumer<Field> getFieldsValues = field -> {
 			if (field.getColumn() == 1) {
 				sb.append(" " + field.getRow() + "   ");
 			}
-			
-			sb.append(" ");
-			sb.append(field.reveal());
-			sb.append(" ");
 
-			if ((field.getColumn() == field.getGameboard().getTotalRows()) && (field.getColumn() != 1)) {
+			if (field.getRow() > 0 && field.getRow() < 10) {
+				sb.append("  ");
+				sb.append(field.reveal());
+				sb.append(" ");
+			} else {
+				sb.append(" ");
+				sb.append(field.reveal());
+				sb.append("  ");
+			}
+
+			if ((field.getColumn() == field.getGameboard().getTotalColumns()) && (field.getColumn() != 1)) {
 				sb.append("\n");
 			}
 		};
@@ -213,30 +226,59 @@ public class Gameboard {
 		this.fields.stream().forEach(getFieldsValues);
 		return sb.toString();
 	}
-
+	
 	public void emptyGameboardPresentation() {
-		System.out.println();
-		for(int i = 1; i <= this.getTotalColumns(); i++) {
-			if(i == 1) {
-				System.out.print("     ");
-			}
-			System.out.print(" " + i + " ");
-		}
-		
-		System.out.println("\n");
-		
-		for (int i = 1; i <= this.getTotalRows(); i++) {
-			for (int j = 1; j <= this.getTotalColumns(); j++) {
-				if(j == 1) {
-					System.out.print(" " + i + "   ");
-				}
-				System.out.print(" ? ");				
+		StringBuilder sb = new StringBuilder();
 
-				if (this.getTotalColumns() == j) {
-					System.out.println();
+		sb.append("\n");
+
+		for (int i = 0; i <= this.getTotalColumns(); i++) {
+			if (i == 0) {
+				sb.append("     ");
+				continue;
+			}
+			if (i > 10) {
+				sb.append(" " + i + " ");
+			} else {
+				sb.append("  " + i + " ");
+			}
+		}
+
+		sb.append("\n\n");
+
+		int column = 1;
+		int row = 1;
+
+		for (int j = 0; j < this.getTotalRows(); j++) {
+			for (int i = 0; i < this.getTotalColumns(); i++) {
+				if (column == 1) {
+					sb.append(" " + row + "   ");
+				}
+
+				if (row > 0 && row < 10) {
+					sb.append("  ");
+					sb.append("?");
+					sb.append(" ");
+				} else {
+					sb.append(" ");
+					sb.append("?");
+					sb.append("  ");
+				}
+
+				if ((column == this.getTotalColumns())) {
+					sb.append("\n");
+				}
+
+				column++;
+
+				if (column > this.getTotalColumns()) {
+					column = 1;
+					row++;
 				}
 			}
 		}
+
+		System.out.print(sb.toString());
 	}
 
 	public String toString() {
@@ -247,7 +289,12 @@ public class Gameboard {
 				sb.append("     ");
 				continue;
 			}
-			sb.append(" " + i + " ");
+
+			if (i > 10) {
+				sb.append(" " + i + " ");
+			} else {
+				sb.append("  " + i + " ");
+			}
 		}
 
 		sb.append("\n\n");
@@ -257,9 +304,15 @@ public class Gameboard {
 				sb.append(" " + field.getRow() + "   ");
 			}
 
-			sb.append(" ");
-			sb.append(field.toString());
-			sb.append(" ");
+			if (field.getRow() > 0 && field.getRow() < 10) {
+				sb.append("  ");
+				sb.append(field.toString());
+				sb.append(" ");
+			} else {
+				sb.append(" ");
+				sb.append(field.toString());
+				sb.append("  ");
+			}
 
 			if ((field.getColumn() == field.getGameboard().getTotalColumns()) && (field.getColumn() != 1)) {
 				sb.append("\n");
@@ -267,6 +320,7 @@ public class Gameboard {
 		};
 
 		this.fields.stream().forEach(getFieldsValues);
+
 		return sb.toString();
 	}
 

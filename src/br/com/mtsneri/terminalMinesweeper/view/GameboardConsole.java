@@ -81,6 +81,12 @@ public class GameboardConsole {
 				
 				isFieldsCreated = !this.gameboard.fields.isEmpty();
 				isFieldsNotCreated = !isFieldsCreated;
+				
+				// Test
+				if(rowValue == 5 && columnValue == 5) {
+					this.gameboard.fields.stream().forEach(v -> v.setGoalAchiev(true));
+				}
+				
 				isGameboardGoalAchieved = this.gameboard.goalAchieved();
 				this.checkIfGameboardGoalIsAchieved(isGameboardGoalAchieved);
 			}
