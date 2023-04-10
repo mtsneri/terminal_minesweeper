@@ -46,7 +46,7 @@ Mateus Neri.
 
 ## Licença
 
-N/A
+N/A.
 
 ## Agradecimentos
 
