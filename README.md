@@ -27,12 +27,12 @@ Jogo de campo minado no terminal feito em Java.
 
 ## Autor
 
-Mateus Neri
+Mateus Neri.
 
 ## Histórico de Versões
 
 * 0.0.1
-	* Lançamento inicial
+	* Lançamento inicial.
 	* As minas são geradas somente após a primeira abertura de um campo.
 	* Não implementados tabuleiros com o visual adequado a partir de 10 linhas/colunas (caso sejam aumentados os limites das constantes que determinam o máximo de linhas e colunas, não haverá responsividade visual).
 	* Determinados via terminal, os parâmetros de entrada corretos. Assim como implementados os tratamentos para as entradas incorretas.
