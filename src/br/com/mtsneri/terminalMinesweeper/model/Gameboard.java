@@ -29,7 +29,6 @@ public class Gameboard {
 	private final int TOTAL_MINES;
 
 	private boolean gameRestarted = false;
-	public int qtdeCamposClicados = 0;
 
 	public List<Integer> minesPosition = new ArrayList<>();
 	public List<Field> fields = new ArrayList<>();
